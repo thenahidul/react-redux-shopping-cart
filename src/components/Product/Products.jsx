@@ -8,7 +8,7 @@ const Products = () => {
 	useEffect(() => {
 		setProducts(data.products);
 	}, []);
-	console.log(products);
+	// console.log(products);
 
 	return (
 		<div className="row row-cols-1 row-cols-lg-3 row-cols-sm-2 g-4">
