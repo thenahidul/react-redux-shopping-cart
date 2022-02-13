@@ -1,20 +1,21 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import About from "./pages/About";
+import Home from "./pages/Home";
 
 const App = () => {
 	return (
-		<>
+		<BrowserRouter>
 			<Header />
 			<main>
-				<div className="min-vh-100 container">
-					<div className="row">
-						<div className="col-sm-8">Main Content</div>
-						<div className="col-sm-4">Sidebar</div>
-					</div>
-				</div>
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/about" element={<About />} />
+				</Routes>
 			</main>
 			<Footer />
-		</>
+		</BrowserRouter>
 	);
 };
 
