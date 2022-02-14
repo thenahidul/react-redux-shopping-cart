@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import Cart from "./Cart/Cart";
 
 const Sidebar = () => {
-  return (
-	<aside></aside>
-  )
-}
+	return (
+		<aside>
+			<Cart />
+		</aside>
+	);
+};
 
-export default Sidebar
+export default Sidebar;
