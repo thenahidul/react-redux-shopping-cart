@@ -17,10 +17,18 @@ a {
 	text-decoration: none;
 }
 
-.color-secondary:hover,
+/* .color-secondary:hover, */
 .color-primary {
 	color: #ffc200;
 }
 .color-secondary {
 	color: #ff7600;
+}
+
+.bgc-primary {
+	background-color: #ffc200;
+}
+
+.bgc-secondary {
+	background-color: #ff7600;
 }

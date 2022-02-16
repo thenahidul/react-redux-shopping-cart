@@ -11,6 +11,11 @@
 				"XL",
 				"XXL"
 			],
+			"colors": [
+				"red",
+				"green",
+				"yellow"
+			],
 			"price": 29.37
 		},
 		{
@@ -23,7 +28,12 @@
 				"M",
 				"L"
 			],
-			"price": 18.9
+			"colors": [
+				"black",
+				"white",
+				"yellow"
+			],
+			"price": 18.69
 		},
 		{
 			"_id": "dress3",
@@ -35,7 +45,12 @@
 				"M",
 				"L"
 			],
-			"price": 14.9
+			"colors": [
+				"orange",
+				"grey",
+				"pink"
+			],
+			"price": 14.12
 		},
 		{
 			"_id": "dress4",
@@ -45,7 +60,13 @@
 			"availableSizes": [
 				"XL"
 			],
-			"price": 25.9
+			"colors": [
+				"green",
+				"blue",
+				"gold",
+				"tomato"
+			],
+			"price": 25.43
 		},
 		{
 			"_id": "dress5",
@@ -57,7 +78,12 @@
 				"L",
 				"XL"
 			],
-			"price": 10.9
+			"colors": [
+				"white",
+				"pink",
+				"magenta"
+			],
+			"price": 10.67
 		},
 		{
 			"_id": "dress6",
@@ -68,7 +94,12 @@
 				"XL",
 				"XXL"
 			],
-			"price": 49.9
+			"colors": [
+				"yellow",
+				"white",
+				"rosegold"
+			],
+			"price": 49.99
 		}
 	]
 }
