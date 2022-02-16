@@ -1,60 +1,57 @@
-import React, { useEffect, useState } from "react";
-import { MdDeleteForever } from "react-icons/md";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { formatCurrency } from "../../functions";
-import { clearCart, removeFromCart } from "../../utils/store/cartSlice";
+import { MdDeleteForever } from "react-icons/md";
 import { Fade } from "react-awesome-reveal";
+import { formatCurrency } from "../../functions";
+import {
+	clearCart,
+	getCartTotalItem,
+	getCartTotalPrice,
+	removeFromCart
+} from "../../utils/store/cartSlice";
 
 const Cart = () => {
-	const [total, setTotal] = useState(0);
 	const cart = useSelector((state) => state.cart.list);
 	const dispatch = useDispatch();
-
-	useEffect(() => {
-		setTotal(
-			cart.reduce((total, curr) => {
-				return total + curr.price * curr.qty;
-			}, 0)
-		);
-	}, [cart]);
-	// console.log(a.total());
+	const total = useSelector((state) => getCartTotalItem(state.cart));
+	const totalPrice = useSelector((state) => getCartTotalPrice(state.cart));
 
 	return (
 		<div className="border rounded p-3">
 			<h3 className="text-center mb-4 pb-3 border-bottom cart-heading">
 				Cart
-				<small> ({cart.length})</small>
+				<small> ({total})</small>
 			</h3>
 			{cart.length ? (
 				<Fade cascade direction="left" triggerOnce={true}>
 					<ul className="list-unstyled d-grid gap-3 mb-0">
-						{cart.map((cart) => (
+						{cart.map((product) => (
 							<li
 								className="d-flex position-relative text-right"
-								key={cart._id}>
+								key={product._id}>
 								<img
 									className="thumb img-thumbnail"
-									src={cart.image}
-									alt={cart.title}
+									src={product.image}
+									alt={product.title}
 								/>
 								<div className="px-3">
 									<h6 className="mt-0 mb-1 card-title cart-title">
-										{cart.title}
+										{product.title}
 									</h6>
 									<div className="text-secondary cart-meta">
 										<span className="amount">
-											{formatCurrency(cart.price)}
+											{formatCurrency(product.price)}
 										</span>
 										<span>x</span>
 										<span className="quantity">
-											{cart.qty}
+											{product.qty}
 										</span>
 										<div>
 											<span className="size">
-												Size: {cart.size},
+												Size: {product.size},
 											</span>
 											<span className="color">
-												Color: {cart.color}
+												Color: {product.color}
 											</span>
 										</div>
 										<span
@@ -62,7 +59,7 @@ const Cart = () => {
 											onClick={() =>
 												dispatch(
 													removeFromCart({
-														_id: cart._id
+														_id: product._id
 													})
 												)
 											}>
@@ -82,12 +79,15 @@ const Cart = () => {
 			{cart.length > 0 && (
 				<div className="border-top pt-3 mt-4">
 					<h4 className="text-end mt-2">
-						Total: {formatCurrency(total)}
+						Total: {formatCurrency(totalPrice)}
 					</h4>
 					<div className="btn-group w-100 mt-2">
-						<button type="button" className="btn bgc-primary">
+						<Link
+							to="/cart"
+							type="button"
+							className="btn bgc-primary">
 							View Cart
-						</button>
+						</Link>
 						<button type="button" className="btn bgc-secondary">
 							Checkout
 						</button>

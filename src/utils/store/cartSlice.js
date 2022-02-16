@@ -1,13 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {
+	clearCartLocalStorage,
+	getCartLocalStorage,
+	setCartLocalStorage
+} from "../../functions";
 
 const initialState = {
-	list: JSON.parse(localStorage.getItem("cart")) || []
-	// total: function () {
-	// 	return this.list.reduce((a, b) => {
-	// 		console.log(a, b);
-	// 		return a + b.qty;
-	// 	}, 0);
-	// }
+	list: getCartLocalStorage() || []
 };
 
 const cartSlice = createSlice({
@@ -33,23 +32,43 @@ const cartSlice = createSlice({
 			if (!inCart) {
 				cart.list.push({ ...newProduct });
 			}
-			localStorage.setItem("cart", JSON.stringify(cart.list));
+			setCartLocalStorage(cart.list);
 		},
 		removeFromCart(cart, action) {
 			const newCart = cart.list.filter(
 				(p) => p._id !== action.payload._id
 			);
-			localStorage.setItem("cart", JSON.stringify(newCart));
+			setCartLocalStorage(newCart);
 			return { ...cart, list: newCart };
 		},
 		clearCart(cart, action) {
-			localStorage.clear("cart");
+			clearCartLocalStorage();
 			return { ...cart, list: [] };
+		},
+		adjustQty(cart, action) {
+			const { _id, value } = action.payload;
+			cart.list.forEach((p) => {
+				if (p._id === _id) {
+					p.qty = value;
+				}
+			});
+			setCartLocalStorage(cart.list);
 		}
 	}
 });
 
-export const { getCart, addToCart, removeFromCart, clearCart } =
+export const { getCart, addToCart, removeFromCart, clearCart, adjustQty } =
 	cartSlice.actions;
 
 export default cartSlice.reducer;
+
+// selector
+export const getCartTotalItem = (cart) => {
+	return cart.list.length;
+};
+
+export const getCartTotalPrice = (cart) => {
+	return cart.list.reduce((total, curr) => {
+		return total + curr.price * curr.qty;
+	}, 0);
+};
