@@ -34,6 +34,11 @@ const Header = () => {
 								About
 							</NavLink>
 						</li>
+						<li className="nav-item">
+							<NavLink className="nav-link mx-2" to="/cart">
+								Cart
+							</NavLink>
+						</li>
 					</ul>
 				</div>
 			</div>
