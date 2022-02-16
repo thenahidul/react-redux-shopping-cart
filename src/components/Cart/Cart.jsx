@@ -2,24 +2,23 @@ import React, { useEffect, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import { formatCurrency } from "../../functions";
-import { removeFromCart } from "../../utils/store/cartSlice";
+import { clearCart, removeFromCart } from "../../utils/store/cartSlice";
 
 const Cart = () => {
 	// const [cart, setCart] = useState([]);
 	const [total, setTotal] = useState(0);
 	const cart = useSelector((state) => state.cart.list);
+	const a = useSelector((state) => state.cart);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		// const products = data.products.map((product) => product);
-		// setCart(data.products.slice(0, 3));
 		setTotal(
 			cart.reduce((total, curr) => {
 				return total + curr.price * curr.qty;
 			}, 0)
 		);
 	}, [cart]);
-	// console.log(cart);
+	// console.log(a.total());
 
 	return (
 		<div className="border rounded p-3">
@@ -90,6 +89,11 @@ const Cart = () => {
 							Checkout
 						</button>
 					</div>
+					<button
+						onClick={() => dispatch(clearCart())}
+						className="btn text-danger d-block mx-auto">
+						Clear Cart
+					</button>
 				</div>
 			)}
 
