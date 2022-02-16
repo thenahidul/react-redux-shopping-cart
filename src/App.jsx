@@ -9,7 +9,7 @@ const App = () => {
 	return (
 		<BrowserRouter>
 			<Header />
-			<main className="min-vh-100">
+			<main className="min-vh-100 main">
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/about" element={<About />} />

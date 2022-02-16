@@ -5,6 +5,7 @@ import styles from "./Product.module.css";
 const Product = ({ product }) => {
 	return (
 		<div className="col">
+
 			<div className="card h-100 img-thumbnail">
 				<Link to={`/${product._id}`}>
 					<img
