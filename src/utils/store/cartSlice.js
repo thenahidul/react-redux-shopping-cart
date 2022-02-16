@@ -1,10 +1,13 @@
-import { createSlice, current } from "@reduxjs/toolkit";
-import data from "../../data.json";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-	// list: data.products.slice(0, 1).map((p) => ({ ...p, qty: 1 }))
 	list: JSON.parse(localStorage.getItem("cart")) || []
-	// list: []
+	// total: function () {
+	// 	return this.list.reduce((a, b) => {
+	// 		console.log(a, b);
+	// 		return a + b.qty;
+	// 	}, 0);
+	// }
 };
 
 const cartSlice = createSlice({
@@ -20,7 +23,7 @@ const cartSlice = createSlice({
 
 			cart.list.forEach((p) => {
 				if (p._id === newProduct._id) {
-					p.qty++;
+					p.qty += newProduct.qty;
 					p.size = newProduct.size;
 					p.color = newProduct.color;
 					inCart = true;
@@ -28,7 +31,7 @@ const cartSlice = createSlice({
 			});
 
 			if (!inCart) {
-				cart.list.push({ ...newProduct, qty: 1 });
+				cart.list.push({ ...newProduct });
 			}
 			localStorage.setItem("cart", JSON.stringify(cart.list));
 		},
@@ -38,10 +41,15 @@ const cartSlice = createSlice({
 			);
 			localStorage.setItem("cart", JSON.stringify(newCart));
 			return { ...cart, list: newCart };
+		},
+		clearCart(cart, action) {
+			localStorage.clear("cart");
+			return { ...cart, list: [] };
 		}
 	}
 });
 
-export const { getCart, addToCart, removeFromCart } = cartSlice.actions;
+export const { getCart, addToCart, removeFromCart, clearCart } =
+	cartSlice.actions;
 
 export default cartSlice.reducer;

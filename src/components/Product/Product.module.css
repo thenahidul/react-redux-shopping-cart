@@ -1,0 +1,14 @@
+.productBody {
+	min-height: 90px;
+}
+.productTitle {
+	font-size: 18px;
+}
+.productTitle:first-letter {
+	text-transform: capitalize;
+}
+.qty {
+	width: 50px;
+	text-align: center;
+	margin-right: 5px;
+}
