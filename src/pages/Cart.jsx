@@ -1,19 +1,115 @@
-import React from 'react'
+import { useSelector, useDispatch } from "react-redux";
+import { MdDeleteForever } from "react-icons/md";
+import { formatCurrency } from "../functions";
+import {
+	adjustQty,
+	getCartTotalPrice,
+	removeFromCart
+} from "../utils/store/cartSlice";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
-  return (
-		<div className="container min-vh-100 py-5">
+	const [qty, setQty] = useState(1);
+	const cart = useSelector((state) => state.cart.list);
+	const dispatch = useDispatch();
+
+	const totalPrice = useSelector((state) => getCartTotalPrice(state.cart));
+
+	return (
+		<div className="container py-5">
 			<div className="row">
 				<div className="col">
 					<h1>Cart</h1>
-					Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-					Ullam libero at sed nulla omnis nostrum suscipit nam harum
-					doloribus eum tempore, nemo molestias, dicta possimus
-					eveniet illum voluptas. Amet, pariatur.
+					{cart.length ? (
+						<div className="table-responsive">
+							<table className="table align-middle">
+								<thead>
+									<tr>
+										<th></th>
+										<th></th>
+										<th>Product</th>
+										<th>Price</th>
+										<th className="text-center">
+											Quantity
+										</th>
+										<th>Subtotal</th>
+									</tr>
+								</thead>
+								<tbody>
+									{cart.map((product) => (
+										<tr key={product._id}>
+											<th
+												onClick={() =>
+													dispatch(
+														removeFromCart({
+															_id: product._id
+														})
+													)
+												}
+												scope="row"
+												className="text-danger cursor-pointer">
+												<MdDeleteForever size={22} />
+											</th>
+											<td>
+												<img
+													className="thumb img-thumbnail"
+													src={product.image}
+													alt={product.title}
+													width={50}
+												/>
+											</td>
+											<td>{product.title}</td>
+											<td>
+												{formatCurrency(product.price)}
+											</td>
+											<td className="text-center">
+												<input
+													className="text-center"
+													style={{ width: "50px" }}
+													type="number"
+													value={product.qty}
+													onChange={(e) =>
+														dispatch(
+															adjustQty({
+																_id: product._id,
+																value: e.target
+																	.value
+															})
+														)
+													}
+												/>
+											</td>
+											<td>
+												{formatCurrency(
+													product.qty * product.price
+												)}
+											</td>
+										</tr>
+									))}
+								</tbody>
+							</table>
+							<div className="d-flex flex-column align-items-end justify-content-end px-5">
+								<h4 className="my-3">
+									Total:
+									<span className="mx-3">
+										{formatCurrency(totalPrice)}
+									</span>
+								</h4>
+								<Link
+									to="/checkout"
+									className="btn rounded-0 bgc-primary text-end text-uppercase">
+									Proceed to Checkout
+								</Link>
+							</div>
+						</div>
+					) : (
+						"Your Cart is Empty"
+					)}
 				</div>
 			</div>
 		</div>
-  );
-}
+	);
+};
 
-export default Cart
+export default Cart;
