@@ -6,10 +6,10 @@ const Home = () => {
 	return (
 		<div className="container min-vh-100 py-5">
 			<div className="row">
-				<div className="col-sm-9">
+				<div className="col-lg-9 col-md-8">
 					<Products />
 				</div>
-				<div className="col-sm-3">
+				<div className="col-lg-3 col-md-4">
 					<Sidebar />
 				</div>
 			</div>

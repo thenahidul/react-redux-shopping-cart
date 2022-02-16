@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react";
-import data from "../../data.json";
+import { useSelector } from "react-redux";
 import Product from "./Product";
 
 const Products = () => {
-	const [products, setProducts] = useState([]);
+	const products = useSelector((state) => state.products.list);
 
 	useEffect(() => {
-		setProducts(data.products);
+		// setProducts(data.products);
 	}, []);
 	// console.log(products);
 
 	return (
 		<div className="row row-cols-1 row-cols-lg-3 row-cols-sm-2 g-4">
-			{products &&
-				products.map((product) => (
-					<Product product={product} key={product._id} />
-				))}
+			{products.length
+				? products.map((product) => (
+						<Product product={product} key={product._id} />
+				  ))
+				: "No products found"}
 		</div>
 	);
 };
