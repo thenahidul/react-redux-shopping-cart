@@ -11,7 +11,7 @@ const initialState = {
 
 const cartSlice = createSlice({
 	name: "carts",
-	initialState: initialState,
+	initialState,
 	reducers: {
 		getCart(cart, action) {
 			return cart;
@@ -67,8 +67,14 @@ export const getCartTotalItem = (cart) => {
 	return cart.list.length;
 };
 
-export const getCartTotalPrice = (cart) => {
-	return cart.list.reduce((total, curr) => {
-		return total + curr.price * curr.qty;
-	}, 0);
+export const getCartTotalPrice = (state) => {
+	const shipping = +state.shipping.selected.rate;
+
+	return (
+		state.cart.list.reduce((total, curr) => {
+			return total + curr.price * curr.qty;
+		}, 0) + shipping
+	);
+
+	// return shipping ? total + cart.shipping.selected : total;
 };

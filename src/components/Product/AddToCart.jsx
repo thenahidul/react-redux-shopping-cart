@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { formatCurrency } from "../../functions";
 import { addToCart } from "../../utils/store/cartSlice";
+import Select from "../common/Select";
 import styles from "./Product.module.css";
 
 const AddToCart = ({ product }) => {
@@ -22,33 +23,21 @@ const AddToCart = ({ product }) => {
 
 	return (
 		<>
-			<div className="d-flex align-items-center justify-content-between px-3">
-				<div>
-					<select
-						id="size"
-						className="form-control"
-						onChange={(e) => setSize(e.target.value)}>
-						<option value="">Select a size</option>
-						{product.availableSizes.map((size) => (
-							<option value={size} key={size}>
-								{size}
-							</option>
-						))}
-					</select>
-				</div>
-				<div>
-					<select
-						id="color"
-						className="form-control"
-						onChange={(e) => setColor(e.target.value)}>
-						<option value="">Select a color</option>
-						{product.colors.map((color) => (
-							<option value={color} key={color}>
-								{color}
-							</option>
-						))}
-					</select>
-				</div>
+			<div className="d-flex align-items-center justify-content-between px-3 gap-3">
+				<Select
+					id="size"
+					size="md"
+					options={product.availableSizes}
+					firstOption="Select a size"
+					onChange={(e) => setSize(e.target.value)}
+				/>
+				<Select
+					id="color"
+					size="md"
+					options={product.colors}
+					firstOption="Select a color"
+					onChange={(e) => setColor(e.target.value)}
+				/>
 			</div>
 			<div className="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center">
 				<h6 className="m-0 text-dark">
