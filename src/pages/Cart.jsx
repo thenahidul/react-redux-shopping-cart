@@ -103,7 +103,7 @@ const Cart = () => {
 								</h4>
 								<Link
 									to="/checkout"
-									className="btn btn-lg bgc-primary text-end text-uppercase">
+									className="btn btn-lg rounded-0 bgc-primary text-end text-uppercase px-4">
 									Proceed to Checkout
 								</Link>
 							</div>

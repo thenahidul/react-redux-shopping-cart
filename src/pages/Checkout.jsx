@@ -8,8 +8,8 @@ const Checkout = () => {
 			<form>
 				<div className="row">
 					<h1>Checkout</h1>
-					<div className="col-sm-8">
-						<div className="row g-3">
+					<div className="mt-4 col-lg-8">
+						<div className="row g-3 form-row">
 							<div className="col-md-6">
 								<Input label="First Name" id="firstname" />
 							</div>
@@ -40,16 +40,23 @@ const Checkout = () => {
 							</div>
 						</div>
 					</div>
-					<div className="col-sm-4">
+					<div className="col-lg-4 mt-5">
 						<ChartSummary />
 						<div className="mt-2">
-							<button type="submit" className="btn btn-lg bgc-primary w-100">
+							<button
+								type="submit"
+								className="btn btn-lg bgc-primary w-100">
 								Place Order
 							</button>
 						</div>
 					</div>
 				</div>
 			</form>
+			<style jsx="true">{`
+				.form-row label {
+					font-weight: 500;
+				}
+			`}</style>
 		</div>
 	);
 };
