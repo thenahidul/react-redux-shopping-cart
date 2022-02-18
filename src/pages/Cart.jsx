@@ -6,15 +6,14 @@ import {
 	getCartTotalPrice,
 	removeFromCart
 } from "../utils/store/cartSlice";
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import Input from "../components/common/Input";
 
 const Cart = () => {
-	const [qty, setQty] = useState(1);
 	const cart = useSelector((state) => state.cart.list);
 	const dispatch = useDispatch();
 
-	const totalPrice = useSelector((state) => getCartTotalPrice(state.cart));
+	const totalPrice = useSelector((state) => getCartTotalPrice(state));
 
 	return (
 		<div className="container py-5">
@@ -40,13 +39,19 @@ const Cart = () => {
 									{cart.map((product) => (
 										<tr key={product._id}>
 											<th
-												onClick={() =>
-													dispatch(
-														removeFromCart({
-															_id: product._id
-														})
-													)
-												}
+												onClick={() => {
+													if (
+														window.confirm(
+															"Are you sure?"
+														)
+													) {
+														dispatch(
+															removeFromCart({
+																_id: product._id
+															})
+														);
+													}
+												}}
 												scope="row"
 												className="text-danger cursor-pointer">
 												<MdDeleteForever size={22} />
@@ -64,11 +69,11 @@ const Cart = () => {
 												{formatCurrency(product.price)}
 											</td>
 											<td className="text-center">
-												<input
-													className="text-center"
-													style={{ width: "50px" }}
+												<Input
 													type="number"
+													min={1}
 													value={product.qty}
+													className="text-center"
 													onChange={(e) =>
 														dispatch(
 															adjustQty({
@@ -98,7 +103,7 @@ const Cart = () => {
 								</h4>
 								<Link
 									to="/checkout"
-									className="btn rounded-0 bgc-primary text-end text-uppercase">
+									className="btn btn-lg bgc-primary text-end text-uppercase">
 									Proceed to Checkout
 								</Link>
 							</div>

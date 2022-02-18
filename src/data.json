@@ -101,5 +101,34 @@
 			],
 			"price": 49.99
 		}
+	],
+	"shippings": [
+		{
+			"_id": "free_shipping",
+			"title": "Free Shipping",
+			"rate": 0
+		},
+		{
+			"_id": "flat_rate",
+			"title": "Flat Rate",
+			"rate": 10
+		},
+		{
+			"_id": "dhl",
+			"title": "DHL",
+			"rate": 60
+		}
+	],
+	"payments": [
+		{
+			"_id": "paypal",
+			"title": "Paypal",
+			"icon": "/images/paypal.png"
+		},
+		{
+			"_id": "cod",
+			"title": "Cash on Delivery",
+			"icon": "/images/cod.png"
+		}
 	]
 }
