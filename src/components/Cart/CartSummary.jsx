@@ -148,9 +148,6 @@ const CartSummary = () => {
 				label {
 					cursor: pointer;
 					white-space: nowrap;
-					 {
-						/* font-size: 0.85rem; */
-					}
 				}
 			`}</style>
 		</div>
