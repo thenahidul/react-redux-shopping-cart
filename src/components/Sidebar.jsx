@@ -1,10 +1,10 @@
 import React from "react";
-import Cart from "./Cart/Cart";
+import CartMini from "./Cart/CartMini";
 
 const Sidebar = () => {
 	return (
 		<aside>
-			<Cart />
+			<CartMini />
 		</aside>
 	);
 };

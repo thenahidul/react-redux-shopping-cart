@@ -24,10 +24,12 @@ a {
 	color: #ff7600;
 }
 
+.btn.bgc-secondary:hover,
 .bgc-primary {
 	background-color: #ffc200;
 }
 
+.btn.bgc-primary:hover,
 .bgc-secondary {
 	background-color: #ff7600;
 }

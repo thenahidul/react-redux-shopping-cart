@@ -9,16 +9,18 @@ import {
 	getCartTotalPrice,
 	removeFromCart
 } from "../../utils/store/cartSlice";
+import styles from "./Cart.module.css";
 
-const Cart = () => {
+const CartMini = () => {
 	const cart = useSelector((state) => state.cart.list);
 	const dispatch = useDispatch();
 	const total = useSelector((state) => getCartTotalItem(state.cart));
-	const totalPrice = useSelector((state) => getCartTotalPrice(state.cart));
+	const totalPrice = useSelector((state) => getCartTotalPrice(state));
 
 	return (
 		<div className="border rounded p-3">
-			<h3 className="text-center mb-4 pb-3 border-bottom cart-heading">
+			<h3
+				className={`text-center mb-4 pb-3 border-bottom ${styles["cart-heading"]}`}>
 				Cart
 				<small> ({total})</small>
 			</h3>
@@ -30,39 +32,47 @@ const Cart = () => {
 								className="d-flex position-relative text-right"
 								key={product._id}>
 								<img
-									className="thumb img-thumbnail"
+									className={`${styles.thumb} img-thumbnail`}
 									src={product.image}
 									alt={product.title}
 								/>
 								<div className="px-3">
-									<h6 className="mt-0 mb-1 card-title cart-title">
+									<h6
+										className={`mt-0 mb-1 card-title ${styles["cart-title"]}`}>
 										{product.title}
 									</h6>
-									<div className="text-secondary cart-meta">
+									<div
+										className={`text-secondary ${styles["cart-meta"]}`}>
 										<span className="amount">
 											{formatCurrency(product.price)}
 										</span>
 										<span>x</span>
-										<span className="quantity">
+										<span className={styles.quantity}>
 											{product.qty}
 										</span>
 										<div>
-											<span className="size">
+											<span className={styles.size}>
 												Size: {product.size},
 											</span>
-											<span className="color">
+											<span className={styles.color}>
 												Color: {product.color}
 											</span>
 										</div>
 										<span
-											className="position-absolute remove"
-											onClick={() =>
-												dispatch(
-													removeFromCart({
-														_id: product._id
-													})
-												)
-											}>
+											className={`position-absolute ${styles.remove}`}
+											onClick={() => {
+												if (
+													window.confirm(
+														"Are you sure?"
+													)
+												) {
+													dispatch(
+														removeFromCart({
+															_id: product._id
+														})
+													);
+												}
+											}}>
 											<MdDeleteForever />
 										</span>
 									</div>
@@ -88,50 +98,23 @@ const Cart = () => {
 							className="btn bgc-primary">
 							View Cart
 						</Link>
-						<button type="button" className="btn bgc-secondary">
+						<Link to="/checkout" className="btn bgc-secondary">
 							Checkout
-						</button>
+						</Link>
 					</div>
 					<button
-						onClick={() => dispatch(clearCart())}
+						onClick={() => {
+							if (window.confirm("Are you sure?")) {
+								dispatch(clearCart());
+							}
+						}}
 						className="btn text-danger d-block mx-auto">
 						Clear Cart
 					</button>
 				</div>
 			)}
-
-			<style jsx="true">{`
-				.cart-heading {
-					font-size: 22px;
-				}
-				.thumb {
-					width: 64px;
-					height: 64px;
-				}
-				.cart-title {
-					font-size: 14px;
-				}
-				.cart-meta {
-					font-size: 80%;
-				}
-				.cart-meta span {
-					margin-right: 5px;
-				}
-				.remove {
-					position: absolute;
-					right: -5px;
-					top: 0;
-					color: red;
-					font-size: 20px;
-					cursor: pointer;
-				}
-				.color,
-				.size {
-					text-transform: capitalize;
-				}
-			`}</style>
 		</div>
 	);
 };
 
-export default Cart;
+export default CartMini;
