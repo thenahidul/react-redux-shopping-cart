@@ -1,0 +1,28 @@
+.cart-heading {
+	font-size: 22px;
+}
+.thumb {
+	width: 64px;
+	height: 64px;
+}
+.cart-title {
+	font-size: 14px;
+}
+.cart-meta {
+	font-size: 80%;
+}
+.cart-meta span {
+	margin-right: 5px;
+}
+.remove {
+	position: absolute;
+	right: -5px;
+	top: 0;
+	color: red;
+	font-size: 20px;
+	cursor: pointer;
+}
+.color,
+.size {
+	text-transform: capitalize;
+}

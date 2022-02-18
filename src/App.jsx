@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 
 const App = () => {
 	return (
@@ -14,6 +15,7 @@ const App = () => {
 					<Route path="/" element={<Home />} />
 					<Route path="/about" element={<About />} />
 					<Route path="/cart" element={<Cart />} />
+					<Route path="/checkout" element={<Checkout />} />
 				</Routes>
 			</main>
 			<Footer />
