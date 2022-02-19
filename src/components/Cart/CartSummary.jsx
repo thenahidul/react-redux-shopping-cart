@@ -5,6 +5,7 @@ import { getCartTotalPrice } from "../../utils/store/cartSlice";
 import { changePayment } from "../../utils/store/paymentSlice";
 import { changeShipping } from "../../utils/store/shippingSlice";
 import Input from "../common/Input";
+import styles from "./CartSummary.module.css";
 
 const CartSummary = () => {
 	const cart = useSelector((state) => state.cart.list);
@@ -29,7 +30,8 @@ const CartSummary = () => {
 			{cart.length && (
 				<>
 					<div className="table-responsive">
-						<table className="table table-bordered align-middle order-table">
+						<table
+							className={`table table-bordered align-middle ${styles["order-table"]}`}>
 							<thead className="border-bottom">
 								<tr>
 									<th colSpan="2">
@@ -133,23 +135,6 @@ const CartSummary = () => {
 					</div>
 				</>
 			)}
-			<style jsx="true">{`
-				.order-table th {
-					font-size: 20px;
-					font-weight: 500;
-				}
-				.order-table tbody {
-					border-top: none !important;
-				}
-				.order-table td,
-				.order-table th {
-					padding: 0.75rem 1.25rem;
-				}
-				label {
-					cursor: pointer;
-					white-space: nowrap;
-				}
-			`}</style>
 		</div>
 	);
 };

@@ -1,6 +1,6 @@
 import Radio from "./Radio";
 
-const Input = (props) => {
+const Input = (props) => { 
 	const {
 		type = "text",
 		label,
