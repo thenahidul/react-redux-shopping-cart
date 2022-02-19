@@ -39,3 +39,11 @@ a {
 .main {
 	overflow: hidden;
 }
+.form-select {
+	text-transform: capitalize;
+}
+.product-filter .form-label {
+	margin-bottom: 0;
+	margin-left: 5px;
+	margin-right: 5px;
+}

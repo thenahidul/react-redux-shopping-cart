@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { formatCurrency } from "../../functions";
 import { addToCart } from "../../utils/store/cartSlice";
+import Input from "../common/Input";
 import Select from "../common/Select";
 import styles from "./Product.module.css";
 
@@ -44,10 +45,11 @@ const AddToCart = ({ product }) => {
 					{formatCurrency(product.price)}
 				</h6>
 				<div>
-					<input
-						className={styles.qty}
+					<Input
 						type="number"
+						min={1}
 						value={qty}
+						className={styles.qty}
 						onChange={(e) => setQty(e.target.value)}
 					/>
 					<button

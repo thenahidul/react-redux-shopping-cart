@@ -9,7 +9,7 @@ import {
 	getCartTotalPrice,
 	removeFromCart
 } from "../../utils/store/cartSlice";
-import styles from "./Cart.module.css";
+import styles from "./CartMini.module.css";
 
 const CartMini = () => {
 	const cart = useSelector((state) => state.cart.list);
@@ -32,7 +32,7 @@ const CartMini = () => {
 								className="d-flex position-relative text-right"
 								key={product._id}>
 								<img
-									className={`${styles.thumb} img-thumbnail`}
+									className={`img-thumbnail ${styles.thumb}`}
 									src={product.image}
 									alt={product.title}
 								/>

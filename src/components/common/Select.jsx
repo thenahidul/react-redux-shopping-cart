@@ -1,15 +1,14 @@
-import React from "react";
-
-const Select = ({
-	options,
-	firstOption = "Select an option",
-	name,
-	label,
-	id,
-	size = "",
-	required = true,
-	onChange
-}) => {
+const Select = (props) => {
+	const {
+		options,
+		firstOption = "Select an option",
+		firstValue = "",
+		label,
+		id,
+		size = "",
+		className = `form-select form-select-${size}`,
+		...rest
+	} = props;
 	return (
 		<>
 			{label && (
@@ -17,13 +16,10 @@ const Select = ({
 					{label}
 				</label>
 			)}
-			<select
-				className={`form-select form-select-${size}`}
-				id={id}
-				name={name}
-				onChange={onChange}
-				required={required}>
-				<option value="">{firstOption}</option>
+			<select {...rest} className={className} id={id}>
+				<option defaultValue value={firstValue}>
+					{firstOption}
+				</option>
 				{Array.isArray(options)
 					? options.map((option) => (
 							<option value={option} key={option}>
