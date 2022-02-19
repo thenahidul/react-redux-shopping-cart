@@ -13,6 +13,8 @@ const Cart = () => {
 	const cart = useSelector((state) => state.cart.list);
 	const dispatch = useDispatch();
 
+	// console.log(cart);
+
 	const totalPrice = useSelector((state) => getCartTotalPrice(state));
 
 	return (
@@ -64,7 +66,12 @@ const Cart = () => {
 													width={50}
 												/>
 											</td>
-											<td>{product.title}</td>
+											<td>
+												{product.title}
+												<span className="mx-2 text-capitalize">
+													- {product.color}
+												</span>
+											</td>
 											<td>
 												{formatCurrency(product.price)}
 											</td>
@@ -101,11 +108,18 @@ const Cart = () => {
 										{formatCurrency(totalPrice)}
 									</span>
 								</h4>
-								<Link
-									to="/checkout"
-									className="btn btn-lg rounded-0 bgc-primary text-end text-uppercase px-4">
-									Proceed to Checkout
-								</Link>
+								<div className="btn-group gap-3">
+									<Link
+										to="/"
+										className="btn rounded-0 bgc-secondary text-end text-uppercase px-4">
+										Back to Shopping
+									</Link>
+									<Link
+										to="/checkout"
+										className="btn rounded-0 bgc-primary text-end text-uppercase px-4">
+										Proceed to Checkout
+									</Link>
+								</div>
 							</div>
 						</div>
 					) : (
