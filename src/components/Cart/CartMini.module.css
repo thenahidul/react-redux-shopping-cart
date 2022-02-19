@@ -1,7 +1,7 @@
 .cart-heading {
 	font-size: 22px;
 }
-.thumb {
+body .thumb {
 	width: 64px;
 	height: 64px;
 }
