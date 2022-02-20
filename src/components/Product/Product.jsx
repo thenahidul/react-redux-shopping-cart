@@ -5,9 +5,8 @@ import styles from "./Product.module.css";
 const Product = ({ product }) => {
 	return (
 		<div className="col">
-
 			<div className="card h-100 img-thumbnail">
-				<Link to={`/${product._id}`}>
+				<Link to={`/product/${product.slug}`}>
 					<img
 						src={product.image}
 						className="card-img-top"
@@ -17,7 +16,7 @@ const Product = ({ product }) => {
 				<div className={`card-body ${styles.productBody}`}>
 					<h5 className={`card-title ${styles.productTitle}`}>
 						<Link
-							to={`/${product._id}`}
+							to={`/product/${product.slug}`}
 							className="color-secondary">
 							{product.title}
 						</Link>

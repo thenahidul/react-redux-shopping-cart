@@ -1,16 +1,35 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import data from "../../data.json";
 
+const API = `${process.env.REACT_APP_BACKEND_URI}/products`;
+
 const initialState = {
+	loading: false,
 	list: data.products || [],
 	filteredList: data.products || [],
+	singleProduct: {},
 	filterBy: "all",
 	orderBy: "latest",
 	orderByList: ["lowest", "highest"]
 };
 
+export const getProducts = createAsyncThunk("product/getProducts", async () => {
+	const data = await fetch(API);
+	const json = await data.json();
+	return json;
+});
+
+export const getProduct = createAsyncThunk(
+	"product/getProduct",
+	async ({ slug }) => {
+		const data = await fetch(`${API}/${slug}`);
+		const json = await data.json();
+		return json;
+	}
+);
+
 const productSlice = createSlice({
-	name: "products",
+	name: "product",
 	initialState,
 	reducers: {
 		getFilteredProducts(product, action) {
@@ -50,6 +69,30 @@ const productSlice = createSlice({
 					sortable.sort((a, b) => (a._id - b._id ? 1 : -1));
 			}
 			return { ...product, filteredList: sortable, orderBy };
+		}
+	},
+	extraReducers: {
+		[getProducts.pending]: (state) => {
+			state.loading = true;
+		},
+		[getProducts.fulfilled]: (state, action) => {
+			state.loading = false;
+			state.list = action.payload;
+			state.filteredList = state.list;
+		},
+		[getProducts.rejected]: (state, action) => {
+			state.loading = false;
+		},
+
+		[getProduct.pending]: (state) => {
+			state.loading = true;
+		},
+		[getProduct.fulfilled]: (state, action) => {
+			state.loading = false;
+			state.singleProduct = action.payload;
+		},
+		[getProduct.rejected]: (state, action) => {
+			state.loading = false;
 		}
 	}
 });
