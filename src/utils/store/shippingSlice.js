@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const shippingSlice = createSlice({
-	name: "shippings",
+	name: "shipping",
 	initialState: initialState,
 	reducers: {
 		getShippings(shippings, action) {
