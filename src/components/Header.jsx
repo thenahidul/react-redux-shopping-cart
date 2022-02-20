@@ -1,9 +1,14 @@
 import { Link, NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Notice from "./common/Notice";
+import { FaShoppingBag } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { getCartTotalItem } from "../utils/store/cartSlice";
 
 const Header = () => {
 	const path = useLocation().pathname;
+
+	// const total = useSelector((state) => getCartTotalItem(state.cart));
 
 	return (
 		<>
@@ -42,6 +47,7 @@ const Header = () => {
 							<li className="nav-item">
 								<NavLink className="nav-link mx-2" to="/cart">
 									Cart
+									{/* <FaShoppingBag /> {total} */}
 								</NavLink>
 							</li>
 						</ul>

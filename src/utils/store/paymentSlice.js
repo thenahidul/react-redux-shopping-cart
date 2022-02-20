@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const paymentSlice = createSlice({
-	name: "payments",
+	name: "payment",
 	initialState: initialState,
 	reducers: {
 		getPayments(payments, action) {
