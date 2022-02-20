@@ -4,9 +4,8 @@ import { formatCurrency } from "../../functions";
 import { addToCart } from "../../utils/store/cartSlice";
 import Input from "../common/Input";
 import Select from "../common/Select";
-import styles from "./Product.module.css";
 
-const AddToCart = ({ product }) => {
+const AddToCartSingle = ({ product, handleClick }) => {
 	const [size, setSize] = useState("");
 	const [color, setColor] = useState("");
 	const [qty, setQty] = useState(1);
@@ -18,49 +17,46 @@ const AddToCart = ({ product }) => {
 		if (!qty) return alert("Select quantity");
 
 		dispatch(addToCart({ ...product, size, color, qty: +qty }));
-		// +qty to make it number
-		// setQty(1);
+		handleClick(product);
 	};
-
 	return (
 		<>
-			<div className="d-flex align-items-center justify-content-between px-3 gap-3">
+			<h3 className="my-3 text-dark price">
+				{formatCurrency(product.price)}
+			</h3>
+			<div className="d-flex w-75 align-items-center justify-content-between gap-3 my-3">
 				<Select
 					id="size"
-					size="md"
+					size="lg"
 					options={product.availableSizes}
 					firstOption="Select a size"
 					onChange={(e) => setSize(e.target.value)}
 				/>
 				<Select
 					id="color"
-					size="md"
+					size="lg"
 					options={product.colors}
 					firstOption="Select a color"
 					onChange={(e) => setColor(e.target.value)}
 				/>
 			</div>
-			<div className="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center">
-				<h6 className="m-0 text-dark price">
-					{formatCurrency(product.price)}
-				</h6>
-				<div>
-					<Input
-						type="number"
-						min={1}
-						value={qty}
-						className={styles.qty}
-						onChange={(e) => setQty(e.target.value)}
-					/>
-					<button
-						className="btn btn-warning rounded-0 btn-add-to-cart"
-						onClick={() => handleAddToCart(product)}>
-						Add to Cart
-					</button>
-				</div>
+			<div className="d-flex">
+				<button
+					className="btn btn-lg btn-warning rounded-0 btn-add-to-cart px-5 me-2"
+					onClick={() => handleAddToCart(product)}>
+					Add to Cart
+				</button>
+				<Input
+					type="number"
+					min={1}
+					value={qty}
+					className="qty form-control"
+					style={{ width: "80px", textAlign: "center" }}
+					onChange={(e) => setQty(e.target.value)}
+				/>
 			</div>
 		</>
 	);
 };
 
-export default AddToCart;
+export default AddToCartSingle;
