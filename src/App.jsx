@@ -5,6 +5,7 @@ import About from "./pages/About";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import ProductSingle from "./components/Product/ProductSingle";
 
 const App = () => {
 	return (
@@ -13,6 +14,7 @@ const App = () => {
 			<main className="min-vh-100 main">
 				<Routes>
 					<Route path="/" element={<Home />} />
+					<Route path="/product/:slug" element={<ProductSingle />} />
 					<Route path="/about" element={<About />} />
 					<Route path="/cart" element={<Cart />} />
 					<Route path="/checkout" element={<Checkout />} />

@@ -10,6 +10,7 @@ import {
 	removeFromCart
 } from "../../utils/store/cartSlice";
 import styles from "./CartMini.module.css";
+import BtnGroup from "../common/BtnGroup";
 
 const CartMini = () => {
 	const cart = useSelector((state) => state.cart.list);
@@ -91,17 +92,7 @@ const CartMini = () => {
 					<h4 className="text-end mt-2">
 						Total: {formatCurrency(totalPrice)}
 					</h4>
-					<div className="btn-group w-100 mt-2">
-						<Link
-							to="/cart"
-							type="button"
-							className="btn bgc-primary">
-							View Cart
-						</Link>
-						<Link to="/checkout" className="btn bgc-secondary">
-							Checkout
-						</Link>
-					</div>
+					<BtnGroup cssClass="w-100 mt-2" />
 					<button
 						onClick={() => {
 							if (window.confirm("Are you sure?")) {
