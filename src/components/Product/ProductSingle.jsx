@@ -44,7 +44,9 @@ const ProductSingle = () => {
 				</div>
 				<div className="col-md-7">
 					<div className="product-details">
-						<h1>{product.title}</h1>
+						<h1 className="f-letter-uppercase product-title">
+							{product.title}
+						</h1>
 						<p>{product.description}</p>
 						<AddToCartSingle
 							product={product}

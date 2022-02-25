@@ -75,6 +75,9 @@ export const getCartTotalPrice = (state) => {
 			return total + curr.price * curr.qty;
 		}, 0) + shipping
 	);
-
-	// return shipping ? total + cart.shipping.selected : total;
+};
+export const getCartSubTotalPrice = (state) => {
+	return state.cart.list.reduce((total, curr) => {
+		return total + curr.price * curr.qty;
+	}, 0);
 };
