@@ -69,7 +69,10 @@ const Cart = () => {
 											<td>
 												{product.title}
 												<span className="mx-2 text-capitalize">
-													- {product.color}
+													- {product.color},
+													<span className="ms-1">
+														{product.size}
+													</span>
 												</span>
 											</td>
 											<td>
@@ -80,7 +83,7 @@ const Cart = () => {
 													type="number"
 													min={1}
 													value={product.qty}
-													className="text-center"
+													className="text-center form-number"
 													onChange={(e) =>
 														dispatch(
 															adjustQty({
