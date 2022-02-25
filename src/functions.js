@@ -1,5 +1,9 @@
 export function formatCurrency(num) {
-	return "$" + Number(num.toFixed(2)).toLocaleString()
+	return "$" + Number(num.toFixed(2)).toLocaleString();
+}
+
+export function formatPrice(num) {
+	return Number(num.toFixed(2));
 }
 
 export function setCartLocalStorage(value) {

@@ -1,5 +1,5 @@
 import express from "express";
-import Product from "../models/Product";
+import Order from "../models/Order";
 import dbConnect from "../utils/dbConnect";
 
 const router = express.Router();
@@ -10,28 +10,30 @@ const router = express.Router();
 router.get("/", async (req, res) => {
 	await dbConnect();
 	try {
-		const products = await Product.find();
-		res.status(200).json(products);
+		const orders = await Order.find();
+		res.status(200).json(orders);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
 	}
 });
 
 router.get("/:slug", async (req, res) => {
+	// change to _id
 	await dbConnect();
 	try {
-		const products = await Product.find({ slug: req.params.slug });
-		res.status(200).json(products.length ? products[0] : {});
+		const orders = await Order.find({ slug: req.params.slug });
+		res.status(200).json(orders.length ? orders[0] : {});
 	} catch (error) {
 		res.status(404).json({ message: error.message });
 	}
 });
 
+// create
 router.post("/", async (req, res) => {
 	await dbConnect();
 	try {
-		let product = new Product(req.body);
-		const result = await product.save();
+		let order = new Order(req.body);
+		const result = await order.save();
 		res.status(201).json(result);
 	} catch (error) {
 		res.status(409).json({ message: error.message });
@@ -40,9 +42,8 @@ router.post("/", async (req, res) => {
 
 // delete
 router.delete("/", async (req, res) => {
-	await dbConnect();
 	try {
-		const response = await Product.deleteMany();
+		const response = await Order.deleteMany();
 		res.status(204).json(response);
 	} catch (error) {
 		res.status(409).json({ message: error.message });
@@ -50,9 +51,8 @@ router.delete("/", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
-	await dbConnect();
 	try {
-		const response = await Product.findByIdAndRemove(req.params.id);
+		const response = await Order.findByIdAndRemove(req.params.id);
 		res.status(204).json(response);
 	} catch (error) {
 		res.status(409).json({ message: error.message });
