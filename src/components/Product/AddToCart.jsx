@@ -40,16 +40,16 @@ const AddToCart = ({ product }) => {
 					onChange={(e) => setColor(e.target.value)}
 				/>
 			</div>
-			<div className="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center">
-				<h6 className="m-0 text-dark price">
+			<div className="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center  mt-3">
+				<p className="m-0 fw-500 text-dark price">
 					{formatCurrency(product.price)}
-				</h6>
-				<div>
+				</p>
+				<div className="d-flex align-items-center">
 					<Input
 						type="number"
 						min={1}
 						value={qty}
-						className={styles.qty}
+						className={`${styles.qty} form-number`}
 						onChange={(e) => setQty(e.target.value)}
 					/>
 					<button

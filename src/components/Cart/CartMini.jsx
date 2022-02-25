@@ -26,7 +26,7 @@ const CartMini = () => {
 				<small> ({total})</small>
 			</h3>
 			{cart.length ? (
-				<Fade cascade direction="left" triggerOnce={true}>
+				<Fade cascade direction="up" triggerOnce={true}>
 					<ul className="list-unstyled d-grid gap-3 mb-0">
 						{cart.map((product) => (
 							<li

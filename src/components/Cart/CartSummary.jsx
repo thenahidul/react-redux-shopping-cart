@@ -1,32 +1,43 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatCurrency } from "../../functions";
-import { getCartTotalPrice } from "../../utils/store/cartSlice";
+import {
+	getCartTotalPrice,
+	getCartSubTotalPrice
+} from "../../utils/store/cartSlice";
 import { changePayment } from "../../utils/store/paymentSlice";
 import { changeShipping } from "../../utils/store/shippingSlice";
 import Input from "../common/Input";
 import styles from "./CartSummary.module.css";
 
 const CartSummary = () => {
+	const [filteredShipping, setFilteredShipping] = useState([]);
 	const cart = useSelector((state) => state.cart.list);
-	const shippings = useSelector((state) => state.shipping.list);
-	const payments = useSelector((state) => state.payment.list);
-	const totalPrice = useSelector((state) => getCartTotalPrice(state));
+	const {
+		list: shippings,
+		selected: selectedShipping,
+		extra
+	} = useSelector((state) => state.shipping);
+	const { list: payments, selected: selectedPayment } = useSelector(
+		(state) => state.payment
+	);
+	const cartTotal = useSelector((state) => getCartTotalPrice(state));
+	const cartSubTotal = useSelector((state) => getCartSubTotalPrice(state));
+
 	const dispatch = useDispatch();
-	// console.log(shippings);
 
 	useEffect(() => {
-		// if (totalPrice >= 50) {
-		// 	dispatch();
-		// } else {
-		// 	dispatch(selectShipping(SHIPPING_METHODS.flatRate));
-		// }
-	}, []);
-
-	// console.log("x", totalPrice);
+		if (cartSubTotal < extra.free_shipping) {
+			setFilteredShipping(
+				shippings.filter((shipping) => shipping._id !== "free_shipping")
+			);
+		} else {
+			setFilteredShipping(shippings);
+		}
+	}, [cartSubTotal, extra.free_shipping, shippings]);
 
 	return (
-		<div className="">
+		<div>
 			{cart.length && (
 				<>
 					<div className="table-responsive">
@@ -42,7 +53,7 @@ const CartSummary = () => {
 								</tr>
 								<tr className="">
 									<th>Product</th>
-									<th className="text-end">Subtotal</th>
+									<th className="text-end">Total</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -64,7 +75,7 @@ const CartSummary = () => {
 								</tr>
 								<tr>
 									<td colSpan="2">
-										{shippings.map((shipping) => (
+										{filteredShipping.map((shipping) => (
 											<div
 												className="form-check"
 												key={shipping._id}>
@@ -85,6 +96,11 @@ const CartSummary = () => {
 													id={shipping._id}
 													name="shipping"
 													value={shipping._id}
+													checked={
+														selectedShipping._id ===
+															shipping._id &&
+														"checked"
+													}
 												/>
 											</div>
 										))}
@@ -93,13 +109,13 @@ const CartSummary = () => {
 								<tr>
 									<th>Subtotal</th>
 									<th className="text-end">
-										{formatCurrency(totalPrice)}
+										{formatCurrency(cartSubTotal)}
 									</th>
 								</tr>
 								<tr>
 									<th>Total</th>
 									<th className="text-end">
-										{formatCurrency(totalPrice)}
+										{formatCurrency(cartTotal)}
 									</th>
 								</tr>
 							</tbody>
@@ -122,6 +138,10 @@ const CartSummary = () => {
 										id={method._id}
 										name="method"
 										value={method._id}
+										checked={
+											selectedPayment._id ===
+												method._id && "checked"
+										}
 									/>
 								</div>
 								<img

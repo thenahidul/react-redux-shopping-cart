@@ -121,7 +121,7 @@
 	],
 	"payments": [
 		{
-			"_id": "paypal",
+			"_id": "ppl",
 			"title": "Paypal",
 			"icon": "/images/paypal.png"
 		},

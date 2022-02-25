@@ -1,17 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import data from "../../data.json";
-
-const API = `${process.env.REACT_APP_BACKEND_URI}/products`;
 
 const initialState = {
 	loading: false,
-	list: data.products || [],
-	filteredList: data.products || [],
+	list: [],
+	filteredList: [],
 	singleProduct: {},
 	filterBy: "all",
 	orderBy: "latest",
 	orderByList: ["lowest", "highest"]
 };
+
+const API = `${process.env.REACT_APP_BACKEND_URI}/products`;
 
 export const getProducts = createAsyncThunk("product/getProducts", async () => {
 	const data = await fetch(API);
