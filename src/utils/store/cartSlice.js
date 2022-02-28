@@ -3,7 +3,7 @@ import {
 	clearCartLocalStorage,
 	getCartLocalStorage,
 	setCartLocalStorage
-} from "../../functions";
+} from "../functions";
 
 const initialState = {
 	list: getCartLocalStorage() || []

@@ -20,7 +20,7 @@ const ProductSingle = () => {
 	}, [dispatch, slug]);
 
 	const handleClick = (product) => {
-		setNotice(true);
+		window.scrollTo(0, 0);
 
 		// to pass html data ast prop in <Notice/> element
 		setNoticeText([
@@ -29,6 +29,7 @@ const ProductSingle = () => {
 			<span className="mx-2">has been added to your cart</span>,
 			<BtnGroup />
 		]);
+		setNotice(true);
 	};
 
 	return Object.keys(product).length ? (
@@ -47,7 +48,7 @@ const ProductSingle = () => {
 						<h1 className="f-letter-uppercase product-title">
 							{product.title}
 						</h1>
-						<p>{product.description}</p>
+						<div className="my-4">{product.description}</div>
 						<AddToCartSingle
 							product={product}
 							handleClick={handleClick}

@@ -7,8 +7,10 @@ const Select = (props) => {
 		id,
 		size = "",
 		className = `form-select form-select-${size}`,
+		error,
 		...rest
 	} = props;
+
 	return (
 		<>
 			{label && (
@@ -20,18 +22,23 @@ const Select = (props) => {
 				<option defaultValue value={firstValue}>
 					{firstOption}
 				</option>
-				{Array.isArray(options)
-					? options.map((option) => (
-							<option value={option} key={option}>
-								{option}
-							</option>
-					  ))
-					: options.map((option) => (
-							<option key={option.value} value={option.value}>
-								{option.label || option.value}
-							</option>
-					  ))}
+				{options.map((option, i) =>
+					typeof option === "string" ? (
+						<option value={option} key={option}>
+							{option}
+						</option>
+					) : (
+						<option value={option.label} key={i}>
+							{option.label}
+						</option>
+					)
+				)}
 			</select>
+			{error && (
+				<div className="my-1 fw-500 f-letter-uppercase text-danger small">
+					{error}
+				</div>
+			)}
 		</>
 	);
 };

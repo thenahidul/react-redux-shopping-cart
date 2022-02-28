@@ -1,12 +1,13 @@
 import Radio from "./Radio";
 
-const Input = (props) => { 
+const Input = (props) => {
 	const {
 		type = "text",
 		label,
 		id,
 		size = "lg",
-		className = `form-control form-control-${size}`
+		className = `form-control form-control-${size}`,
+		error
 	} = props;
 	return (
 		<>
@@ -17,6 +18,11 @@ const Input = (props) => {
 				<Radio {...props} />
 			) : (
 				<input {...props} type={type} className={className} />
+			)}
+			{error && (
+				<div className="my-1 fw-500 f-letter-uppercase text-danger small">
+					{error}
+				</div>
 			)}
 		</>
 	);

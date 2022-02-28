@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { formatCurrency } from "../../functions";
+import { formatCurrency } from "../../utils/functions";
 import { addToCart } from "../../utils/store/cartSlice";
 import Input from "../common/Input";
 import Select from "../common/Select";
