@@ -4,9 +4,7 @@ import data from "../../data.json";
 const initialState = {
 	list: data.shippings || [],
 	selected: data.shippings[0],
-	extra: {
-		free_shipping: 60 // free shipping order over $50
-	}
+	free_ship_amount: 60 // free shipping order over $50
 };
 
 const shippingSlice = createSlice({

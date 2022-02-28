@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { MdDeleteForever } from "react-icons/md";
-import { formatCurrency } from "../functions";
+import { formatCurrency } from "../utils/functions";
 import {
 	adjustQty,
-	getCartTotalPrice,
+	getCartSubTotalPrice,
 	removeFromCart
 } from "../utils/store/cartSlice";
 import { Link } from "react-router-dom";
@@ -11,11 +11,8 @@ import Input from "../components/common/Input";
 
 const Cart = () => {
 	const cart = useSelector((state) => state.cart.list);
+	const totalPrice = useSelector((state) => getCartSubTotalPrice(state));
 	const dispatch = useDispatch();
-
-	// console.log(cart);
-
-	const totalPrice = useSelector((state) => getCartTotalPrice(state));
 
 	return (
 		<div className="container py-5">

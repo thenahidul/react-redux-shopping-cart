@@ -1,12 +1,13 @@
 import { useSelector } from "react-redux";
-import { formatCurrency } from "../../functions";
+import { formatCurrency } from "../../utils/functions";
 
 const Notice = ({ type = "primary", text = "" }) => {
-	const free_shipping = useSelector(
-		(state) => state.shipping.extra.free_shipping
+	const free_ship_amount = useSelector(
+		(state) => state.shipping.free_ship_amount
 	);
 
-	text = text || `Free Shipping order over ${formatCurrency(free_shipping)}!`;
+	text =
+		text || `Free Shipping order over ${formatCurrency(free_ship_amount)}!`;
 
 	return (
 		<div

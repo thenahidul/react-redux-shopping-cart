@@ -1,14 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Notice from "./common/Notice";
-import { FaShoppingBag } from "react-icons/fa";
-import { useSelector } from "react-redux";
-import { getCartTotalItem } from "../utils/store/cartSlice";
 
 const Header = () => {
 	const path = useLocation().pathname;
-
-	// const total = useSelector((state) => getCartTotalItem(state.cart));
+	// console.log(useLocation());
 
 	return (
 		<>
@@ -68,7 +64,9 @@ const Header = () => {
 					}
 				`}</style>
 			</nav>
-			{(path === "/" || path === "/cart") && <Notice />}
+			{(path === "/" ||
+				path === "/cart" ||
+				path.startsWith("/product")) && <Notice />}
 		</>
 	);
 };
