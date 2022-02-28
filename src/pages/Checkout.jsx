@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import CartSummary from "../components/Cart/CartSummary";
 import Input from "../components/common/Input";
 import { clearCart, getCartTotalPrice } from "../utils/store/cartSlice";
-import { formatPrice } from "../functions.js";
+import { formatPrice, schema } from "../utils/functions";
 import { createOrder } from "../utils/store/orderSlice";
 import Modal from "../components/Order/Modal";
 import Paypal from "../components/Order/Paypal";
+import countryList from "react-select-country-list";
+import Select from "../components/common/Select";
 
 const Checkout = () => {
 	const cart = useSelector((state) => state.cart.list);
@@ -24,32 +26,29 @@ const Checkout = () => {
 		price: formatPrice(item.price * item.qty)
 	}));
 
+	const checkoutForm = useRef();
+	const countries = useMemo(() => countryList().getData(), []);
+
 	const [modal, setModal] = useState(false);
 	const [showPaypal, setShowPaypal] = useState(false);
 
+	const [errors, setErrors] = useState({});
 	const [orderData, setOrderData] = useState({
-		customer: {},
+		customer: {
+			firstname: "",
+			lastname: "",
+			email: "",
+			address: "",
+			country: "",
+			city: "",
+			phone: "",
+			zip: ""
+		},
 		items,
 		total,
 		payment,
 		shipping
 	});
-
-	const handleChange = ({ currentTarget }) => {
-		let { name, value } = currentTarget;
-
-		if (name === "zip") {
-			value = +value;
-		}
-
-		setOrderData((prevState) => ({
-			...prevState,
-			customer: {
-				...prevState.customer,
-				[name]: value
-			}
-		}));
-	};
 
 	useEffect(() => {
 		setOrderData((prevState) => ({
@@ -59,29 +58,80 @@ const Checkout = () => {
 			shipping
 		}));
 
-		payment._id === "ppl" ? setShowPaypal(true) : setShowPaypal(false);
+		// payment._id === "ppl" ? setShowPaypal(true) : setShowPaypal(false);
 	}, [total, payment, shipping]);
 
 	useEffect(() => {
 		if (orderSuccess) {
-			dispatch(clearCart());
+			// dispatch(clearCart());
 		}
 	}, [orderSuccess]);
 
+	const validateInputs = () => {
+		const { error: formErrors } = schema.validate(orderData.customer, {
+			abortEarly: false
+		});
+		if (!formErrors) return null;
+
+		const errors = {};
+		for (let item of formErrors.details) {
+			errors[item.path[0]] = item.message;
+		}
+		return errors;
+	};
+
+	const handleChange = ({ currentTarget: input }) => {
+		const _customer = {};
+		const { name, value } = input;
+
+		// console.log(input);
+
+		if (name === "zip") {
+			_customer[name] = +value;
+		} else {
+			_customer[name] = value.trim();
+		}
+
+		setOrderData((prevState) => ({
+			...prevState,
+			customer: { ...prevState.customer, ..._customer }
+		}));
+	};
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(createOrder(orderData));
-		setModal(true);
+
+		const formErrors = validateInputs();
+		if (formErrors) {
+			setErrors(formErrors);
+			window.scrollTo(0, 0);
+			return;
+		}
+
+		//another way to get button name
+		// const btnPayment = window.event.submitter.name;
+		const btnPayment = checkoutForm.current.btnName;
+
+		if (btnPayment === "ppl") {
+			setShowPaypal(true);
+		}
+		// validation passed
+		else {
+			dispatch(createOrder(orderData));
+			setModal(true);
+		}
 	};
 
 	// paypal
 	const handlePayment = (data) => {
+		const { status, payer } = data;
+
 		const newOrderData = {
 			...orderData,
 			payment: {
 				...payment,
-				status: "completed",
-				payer_email: data.payer.email_address
+				status: status.toLowerCase(),
+				payer_email: payer.email_address
 			}
 		};
 
@@ -96,7 +146,7 @@ const Checkout = () => {
 	return (
 		<div className="container min-vh-100 py-5">
 			{modal && <Modal closeModal={closeModal} />}
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit} ref={checkoutForm}>
 				<div className="row">
 					<h1>Checkout</h1>
 					{cart.length ? (
@@ -106,18 +156,20 @@ const Checkout = () => {
 									<div className="col-md-6">
 										<Input
 											onChange={handleChange}
-											label="First Name"
+											label="First Name*"
 											id="firstname"
 											name="firstname"
+											error={errors.firstname}
 										/>
 									</div>
 
 									<div className="col-md-6">
 										<Input
 											onChange={handleChange}
-											label="Last Name"
+											label="Last Name*"
 											id="lastname"
 											name="lastname"
+											error={errors.lastname}
 										/>
 									</div>
 
@@ -125,9 +177,10 @@ const Checkout = () => {
 										<Input
 											onChange={handleChange}
 											type="email"
-											label="Email"
+											label="Email*"
 											id="email"
 											name="email"
+											error={errors.email}
 										/>
 									</div>
 
@@ -135,43 +188,58 @@ const Checkout = () => {
 										<Input
 											onChange={handleChange}
 											type="tel"
-											label="Phone"
+											label="Phone*"
 											id="phone"
 											name="phone"
+											error={errors.phone}
 										/>
 									</div>
 
 									<div className="col-12">
 										<Input
 											onChange={handleChange}
-											label="Address"
+											label="Address*"
 											id="address"
 											name="address"
+											error={errors.address}
 										/>
 									</div>
 									<div className="col-md-4">
-										<Input
+										<Select
+											id="country"
+											size="lg"
+											options={countries}
+											name="country"
+											label="Country*"
+											firstOption="Select a country"
 											onChange={handleChange}
-											label="Country"
+											error={errors.country}
+										/>
+										{/* <Input
+											onChange={handleChange}
+											label="Country*"
 											id="country"
 											name="country"
-										/>
+											error={errors.country}
+										/> */}
 									</div>
 									<div className="col-md-4">
 										<Input
 											onChange={handleChange}
-											label="City"
+											label="City*"
 											id="city"
 											name="city"
+											error={errors.city}
 										/>
 									</div>
 									<div className="col-md-4">
 										<Input
 											onChange={handleChange}
 											type="number"
-											label="Zip"
+											label="Zip*"
 											id="zip"
 											name="zip"
+											error={errors.zip}
 										/>
 									</div>
 								</div>
@@ -179,16 +247,43 @@ const Checkout = () => {
 							<div className="col-lg-4 mt-5">
 								<CartSummary />
 								<div className="mt-2">
-									{showPaypal ? (
-										<Paypal
-											total={total}
-											orderData={orderData}
-											handlePayment={handlePayment}
-										/>
+									{payment._id === "ppl" ? (
+										<>
+											{!showPaypal ? (
+												<button
+													onClick={(e) => {
+														checkoutForm.current.btnName =
+															e.target.name;
+													}}
+													type="submit"
+													name="ppl"
+													className="btn btn-md bgc-primary w-100 mb-3">
+													Proceed with Paypal
+												</button>
+											) : (
+												<Paypal
+													total={total}
+													orderData={orderData}
+													handlePayment={
+														handlePayment
+													}
+													disable={
+														validateInputs()
+															? true
+															: false
+													}
+												/>
+											)}
+										</>
 									) : (
 										<button
+											onClick={(e) => {
+												checkoutForm.current.btnName =
+													e.target.name;
+											}}
 											type="submit"
-											className="btn btn-lg bgc-primary w-100 mb-3">
+											name="cod"
+											className="btn btn-md bgc-primary w-100 mb-3">
 											Place Order
 										</button>
 									)}

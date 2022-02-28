@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { MdDeleteForever } from "react-icons/md";
 import { Fade } from "react-awesome-reveal";
-import { formatCurrency } from "../../functions";
+import { formatCurrency } from "../../utils/functions";
 import {
 	clearCart,
 	getCartTotalItem,

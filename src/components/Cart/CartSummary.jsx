@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { formatCurrency } from "../../functions";
+import { formatCurrency } from "../../utils/functions";
 import {
 	getCartTotalPrice,
 	getCartSubTotalPrice
@@ -16,7 +16,7 @@ const CartSummary = () => {
 	const {
 		list: shippings,
 		selected: selectedShipping,
-		extra
+		free_ship_amount
 	} = useSelector((state) => state.shipping);
 	const { list: payments, selected: selectedPayment } = useSelector(
 		(state) => state.payment
@@ -27,14 +27,18 @@ const CartSummary = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if (cartSubTotal < extra.free_shipping) {
+		if (cartSubTotal < free_ship_amount) {
 			setFilteredShipping(
 				shippings.filter((shipping) => shipping._id !== "free_shipping")
 			);
+			dispatch(changeShipping("flat_rate"));
 		} else {
 			setFilteredShipping(shippings);
+			dispatch(changeShipping("free_shipping"));
 		}
-	}, [cartSubTotal, extra.free_shipping, shippings]);
+	}, [cartSubTotal, free_ship_amount, shippings]);
+
+	// selectedShipping = filteredShipping[0];
 
 	return (
 		<div>
