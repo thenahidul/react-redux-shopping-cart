@@ -45,14 +45,14 @@ const Paypal = ({ total, handlePayment, disable }) => {
 								]
 							})
 							.then((orderId) => {
-								// console.log("Order Created", orderId);
+								console.log("Order Created", orderId);
 								// Your code here after create the order
 								return orderId;
 							});
 					}}
 					onApprove={(data, actions) => {
 						return actions.order.capture().then((details) => {
-							// console.log("ap", details);
+							console.log("ap", details);
 							handlePayment(details);
 							// Your code here after capture the order
 						});

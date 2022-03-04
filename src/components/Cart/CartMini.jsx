@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { MdDeleteForever } from "react-icons/md";
 import { Fade } from "react-awesome-reveal";
@@ -19,7 +18,7 @@ const CartMini = () => {
 	const totalPrice = useSelector((state) => getCartTotalPrice(state));
 
 	return (
-		<div className="border rounded p-3">
+		<div className="rounded p-3 bg-dark text-light">
 			<h3
 				className={`text-center mb-4 pb-3 border-bottom ${styles["cart-heading"]}`}>
 				Cart
@@ -43,7 +42,7 @@ const CartMini = () => {
 										{product.title}
 									</h6>
 									<div
-										className={`text-secondary ${styles["cart-meta"]}`}>
+										className={`text-white-50 ${styles["cart-meta"]}`}>
 										<span className="amount">
 											{formatCurrency(product.price)}
 										</span>
@@ -99,7 +98,7 @@ const CartMini = () => {
 								dispatch(clearCart());
 							}
 						}}
-						className="btn text-danger d-block mx-auto">
+						className="btn btn-danger text-light w-100 mx-auto mt-2">
 						Clear Cart
 					</button>
 				</div>

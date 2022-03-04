@@ -17,7 +17,6 @@ export const getOrders = createAsyncThunk("order/getOrders", async () => {
 export const createOrder = createAsyncThunk(
 	"order/createOrder",
 	async (order) => {
-		// console.log("slice", order);
 		const data = await fetch(API, {
 			headers: {
 				Accept: "application/json",

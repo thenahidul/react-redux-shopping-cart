@@ -6,7 +6,8 @@ import {
 } from "../functions";
 
 const initialState = {
-	list: getCartLocalStorage() || []
+	list: getCartLocalStorage() || [],
+	added: false
 };
 
 const cartSlice = createSlice({
@@ -76,6 +77,7 @@ export const getCartTotalPrice = (state) => {
 		}, 0) + shipping
 	);
 };
+
 export const getCartSubTotalPrice = (state) => {
 	return state.cart.list.reduce((total, curr) => {
 		return total + curr.price * curr.qty;

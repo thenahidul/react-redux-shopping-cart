@@ -38,8 +38,6 @@ const CartSummary = () => {
 		}
 	}, [cartSubTotal, free_ship_amount, shippings]);
 
-	// selectedShipping = filteredShipping[0];
-
 	return (
 		<div>
 			{cart.length && (

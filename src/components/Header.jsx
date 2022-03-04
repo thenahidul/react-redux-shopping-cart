@@ -1,14 +1,18 @@
 import { Link, NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { BsCart4 } from "react-icons/bs";
 import Notice from "./common/Notice";
+import CartMini from "./Cart/CartMini";
+import { useSelector } from "react-redux";
+import { getCartTotalItem } from "../utils/store/cartSlice";
 
 const Header = () => {
 	const path = useLocation().pathname;
-	// console.log(useLocation());
+	const total = useSelector((state) => getCartTotalItem(state.cart));
 
 	return (
 		<>
-			<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+			<nav className="navbar-fixed-top navbar navbar-expand-lg navbar-dark bg-dark">
 				<div className="container">
 					<Link className="navbar-brand" to="/">
 						RDX Shopping
@@ -40,29 +44,28 @@ const Header = () => {
 									About
 								</NavLink>
 							</li>
-							<li className="nav-item">
-								<NavLink className="nav-link mx-2" to="/cart">
-									Cart
-									{/* <FaShoppingBag /> {total} */}
+							{total && (
+								<li className="nav-item">
+									<NavLink
+										className="nav-link mx-2"
+										to="/checkout">
+										Checkout
+									</NavLink>
+								</li>
+							)}
+							<li className="nav-item position-relative dropdown-trigger">
+								<NavLink
+									className="nav-link mx-2 d-flex align-items-center"
+									to="/cart">
+									<BsCart4 size="18" /> ({total})
 								</NavLink>
+								<div className="position-absolute dropdown header-minicart">
+									<CartMini />
+								</div>
 							</li>
 						</ul>
 					</div>
 				</div>
-
-				<style jsx="true">{`
-					.navbar-nav li a {
-						font-family: "Open Sans", sans-serif;
-						color: #ffc200 !important;
-						font-weight: 500;
-						font-size: 18px;
-						text-transform: uppercase;
-					}
-					.navbar-nav li a:hover,
-					.navbar-nav li a.active {
-						color: #ff7600 !important;
-					}
-				`}</style>
 			</nav>
 			{(path === "/" ||
 				path === "/cart" ||

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { formatCurrency } from "../../utils/functions";
-import { addToCart } from "../../utils/store/cartSlice";
+import { addToCart, addToCartFinish } from "../../utils/store/cartSlice";
 import Input from "../common/Input";
 import Select from "../common/Select";
 import styles from "./Product.module.css";
@@ -18,8 +18,7 @@ const AddToCart = ({ product }) => {
 		if (!qty) return alert("Select quantity");
 
 		dispatch(addToCart({ ...product, size, color, qty: +qty }));
-		// +qty to make it number
-		// setQty(1);
+		// setTimeout(() => dispatch(addToCartFinish()), 7000);
 	};
 
 	return (

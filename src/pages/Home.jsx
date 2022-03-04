@@ -6,12 +6,12 @@ const Home = () => {
 	return (
 		<div className="container min-vh-100 py-5">
 			<div className="row">
-				<div className="col-lg-9 col-md-8">
+				<div className="col">
 					<Products />
 				</div>
-				<div className="col-lg-3 col-md-4">
+				{/* <div className="col-lg-3 col-md-4">
 					<Sidebar />
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

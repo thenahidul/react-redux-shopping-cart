@@ -80,3 +80,34 @@ a {
 .f-letter-uppercase::first-letter {
 	text-transform: uppercase;
 }
+
+.navbar-nav li a.nav-link {
+	font-family: "Open Sans", sans-serif;
+	color: #ffc200 !important;
+	font-weight: 500;
+	font-size: 18px;
+	text-transform: uppercase;
+}
+.navbar-nav li a.nav-link:hover,
+.navbar-nav li a.nav-link.active {
+	color: #ff7600 !important;
+}
+
+.header-minicart {
+	z-index: 99;
+	right: 0;
+	top: 40px;
+	min-width: 300px;
+	border-radius: 5px;
+}
+
+.header-minicart ul {
+	max-height: 40vh;
+	overflow-y: scroll;
+}
+.dropdown {
+	display: none;
+}
+.dropdown-trigger:hover .dropdown {
+	display: block;
+}
