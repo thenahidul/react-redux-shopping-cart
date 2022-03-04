@@ -10,6 +10,7 @@ const CustomerDetails = () => {
 			...customer
 		};
 
+		// eslint-disable-next-line array-callback-return
 		return Object.keys(_customer).map((item, i) => {
 			if (item !== "firstname" && item !== "lastname") {
 				return (

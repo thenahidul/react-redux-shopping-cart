@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { formatCurrency } from "../../utils/functions";
-import { getCartSubTotalPrice } from "../../utils/store/cartSlice";
 import { getOrderSubTotalPrice } from "../../utils/store/orderSlice";
 import styles from "./OrderSummary.module.css";
 

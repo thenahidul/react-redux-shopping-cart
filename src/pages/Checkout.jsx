@@ -61,7 +61,7 @@ const Checkout = () => {
 
 	useEffect(() => {
 		if (orderSuccess) {
-			// dispatch(clearCart());
+			dispatch(clearCart());
 		}
 	}, [orderSuccess]);
 
