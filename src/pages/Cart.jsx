@@ -101,22 +101,22 @@ const Cart = () => {
 									))}
 								</tbody>
 							</table>
-							<div className="d-flex flex-column align-items-end justify-content-end px-5">
+							<div className="d-flex flex-column align-items-end justify-content-end px-lg-5">
 								<h4 className="my-3">
 									Total:
 									<span className="mx-3">
 										{formatCurrency(totalPrice)}
 									</span>
 								</h4>
-								<div className="btn-group gap-3">
+								<div className="btn-group gap-3 flex-column flex-md-row">
 									<Link
 										to="/"
-										className="btn rounded-0 bgc-secondary text-end text-uppercase px-4">
+										className="btn rounded-0 bgc-secondary text-uppercase px-lg-4 px-2">
 										Back to Shopping
 									</Link>
 									<Link
 										to="/checkout"
-										className="btn rounded-0 bgc-primary text-end text-uppercase px-4">
+										className="btn rounded-0 bgc-primary text-uppercase px-lg-4 px-2">
 										Proceed to Checkout
 									</Link>
 								</div>

@@ -10,7 +10,11 @@ import BtnGroup from "../common/BtnGroup";
 const ProductSingle = () => {
 	const [noticeText, setNoticeText] = useState("");
 	const [notice, setNotice] = useState(false);
-	const product = useSelector((state) => state.product.singleProduct);
+
+	const { loading, singleProduct: product } = useSelector(
+		(state) => state.product
+	);
+	// const product = useSelector((state) => state.product.singleProduct);
 	const dispatch = useDispatch();
 
 	const { slug } = useParams();
@@ -32,33 +36,41 @@ const ProductSingle = () => {
 		setNotice(true);
 	};
 
-	return Object.keys(product).length ? (
+	console.log(loading);
+
+	return (
 		<div className="container min-vh-100 py-5 product-single">
 			{notice && <Notice text={noticeText} type="success" />}
-			<div className="row align-items-center">
-				<div className="col-md-5">
-					<img
-						src={product.image}
-						alt={product.title}
-						className="img-thumbnail"
-					/>
-				</div>
-				<div className="col-md-7">
-					<div className="product-details">
-						<h1 className="f-letter-uppercase product-title">
-							{product.title}
-						</h1>
-						<div className="my-4">{product.description}</div>
-						<AddToCartSingle
-							product={product}
-							handleClick={handleClick}
+			{loading ? (
+				<div className="w-100 py-3 text-center">Product loading...</div>
+			) : Object.keys(product).length ? (
+				<div className="row align-items-center">
+					<div className="col-md-5 mb-md-0 mb-4">
+						<img
+							src={product.image}
+							alt={product.title}
+							className="img-thumbnail"
 						/>
 					</div>
+					<div className="col-md-7">
+						<div className="product-details">
+							<h1 className="f-letter-uppercase product-title">
+								{product.title}
+							</h1>
+							<div className="my-4">{product.description}</div>
+							<AddToCartSingle
+								product={product}
+								handleClick={handleClick}
+							/>
+						</div>
+					</div>
 				</div>
-			</div>
+			) : (
+				<div className="w-100 py-3 bg-danger text-white text-center">
+					No product found
+				</div>
+			)}
 		</div>
-	) : (
-		"No Product Found!"
 	);
 };
 

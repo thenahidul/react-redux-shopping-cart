@@ -3,14 +3,28 @@ import { useSelector } from "react-redux";
 import OrderSummmary from "./OrderSummary";
 
 const Modal = ({ closeModal }) => {
-	const orderSuccess = useSelector((state) => state.order.newOrder.success);
+	const { loading, error } = useSelector((state) => state.order);
+	// const orderSuccess = useSelector((state) => state.order.newOrder.success);
 
 	return (
 		<>
 			<div className="modal" tabIndex={-1} style={{ display: "block" }}>
 				<div className="modal-dialog modal-lg" role="document">
 					<div className="modal-content">
-						{orderSuccess ? (
+						{loading ? (
+							<div className="modal-header border-0 bg-danger text-center text-white">
+								<h5 className="flex-grow-1 modal-title">
+									{error
+										? "Something went wrong!"
+										: "Processing order..."}
+								</h5>
+								<IoCloseSharp
+									size="28"
+									onClick={closeModal}
+									className="cursor-pointer"
+								/>
+							</div>
+						) : (
 							<>
 								<div className="modal-header border-0  bg-success text-white text-center">
 									<h5 className="flex-grow-1 modal-title">
@@ -26,17 +40,6 @@ const Modal = ({ closeModal }) => {
 									<OrderSummmary />
 								</div>
 							</>
-						) : (
-							<div className="modal-header border-0 bg-danger text-center text-white">
-								<h5 className="flex-grow-1 modal-title">
-									Something went wrong!
-								</h5>
-								<IoCloseSharp
-									size="28"
-									onClick={closeModal}
-									className="cursor-pointer"
-								/>
-							</div>
 						)}
 					</div>
 				</div>

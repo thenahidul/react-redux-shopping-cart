@@ -7,7 +7,9 @@ import ProductFilter from "./ProductFilter";
 import { getProducts } from "../../utils/store/productSlice";
 
 const Products = () => {
-	const products = useSelector((state) => state.product.filteredList);
+	const { loading, filteredList: products } = useSelector(
+		(state) => state.product
+	);
 
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -19,7 +21,11 @@ const Products = () => {
 		<>
 			<ProductFilter />
 			<div className="row row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 g-5">
-				{products.length ? (
+				{loading ? (
+					<div className="w-100 py-3 text-center">
+						Products loading...
+					</div>
+				) : products.length ? (
 					<Fade
 						cascade
 						duration={800}
@@ -30,8 +36,11 @@ const Products = () => {
 						))}
 					</Fade>
 				) : (
-					"No products found"
+					<div className="w-100 py-3 bg-danger text-white text-center">
+						No products found
+					</div>
 				)}
+				{/* {products.length ? "hi" : "No products found"} */}
 			</div>
 		</>
 	);

@@ -57,8 +57,6 @@ const Checkout = () => {
 			payment,
 			shipping
 		}));
-
-		// payment._id === "ppl" ? setShowPaypal(true) : setShowPaypal(false);
 	}, [total, payment, shipping]);
 
 	useEffect(() => {
@@ -83,8 +81,6 @@ const Checkout = () => {
 	const handleChange = ({ currentTarget: input }) => {
 		const _customer = {};
 		const { name, value } = input;
-
-		// console.log(input);
 
 		if (name === "zip") {
 			_customer[name] = +value;
@@ -117,7 +113,9 @@ const Checkout = () => {
 		}
 		// validation passed
 		else {
+			// setTimeout(() => {
 			dispatch(createOrder(orderData));
+			// }, 5000);
 			setModal(true);
 		}
 	};
@@ -173,7 +171,7 @@ const Checkout = () => {
 										/>
 									</div>
 
-									<div className="col">
+									<div className="col-md-6">
 										<Input
 											onChange={handleChange}
 											type="email"
@@ -184,7 +182,7 @@ const Checkout = () => {
 										/>
 									</div>
 
-									<div className="col">
+									<div className="col-md-6">
 										<Input
 											onChange={handleChange}
 											type="tel"
@@ -215,13 +213,6 @@ const Checkout = () => {
 											onChange={handleChange}
 											error={errors.country}
 										/>
-										{/* <Input
-											onChange={handleChange}
-											label="Country*"
-											id="country"
-											name="country"
-											error={errors.country}
-										/> */}
 									</div>
 									<div className="col-md-4">
 										<Input

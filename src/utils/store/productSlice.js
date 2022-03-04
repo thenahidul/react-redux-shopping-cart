@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const initialState = {
 	loading: false,
 	list: [],
+	error: "",
 	filteredList: [],
 	singleProduct: {},
 	filterBy: "all",
@@ -81,6 +82,8 @@ const productSlice = createSlice({
 		},
 		[getProducts.rejected]: (state, action) => {
 			state.loading = false;
+			console.log(action.payload);
+			state.error = action.payload;
 		},
 
 		[getProduct.pending]: (state) => {
@@ -92,6 +95,7 @@ const productSlice = createSlice({
 		},
 		[getProduct.rejected]: (state, action) => {
 			state.loading = false;
+			state.error = action.payload;
 		}
 	}
 });

@@ -17,10 +17,12 @@ const ProductFilter = () => {
 
 	return (
 		<div className="row align-items-center justify-content-end my-3 product-filter">
-			<div className="col-3 text-end" style={{ fontWeight: 500 }}>
+			<div
+				className="col-12 col-md-6 mb-md-0 mb-3 text-lg-end"
+				style={{ fontWeight: 500 }}>
 				Showing {products.length} Products
 			</div>
-			<div className="col-3 d-flex flex-row-reverse align-items-center">
+			<div className="col-6 col-md-3 d-flex flex-row-reverse align-items-center">
 				<Select
 					options={sizes}
 					firstOption="ALL"
@@ -34,7 +36,7 @@ const ProductFilter = () => {
 					}
 				/>
 			</div>
-			<div className="col-3 d-flex flex-row-reverse align-items-center">
+			<div className="col-6 col-md-3 d-flex flex-row-reverse align-items-center">
 				<Select
 					options={sortOrder}
 					label="Order"

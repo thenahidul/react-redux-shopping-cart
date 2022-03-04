@@ -10,6 +10,7 @@ body {
 	font-family: "Montserrat", sans-serif;
 	font-size: 16px;
 	color: #333;
+	padding-top: 56px;
 }
 
 a {
@@ -88,6 +89,9 @@ a {
 	font-size: 18px;
 	text-transform: uppercase;
 }
+
+.nav-link:focus,
+.nav-link:hover,
 .navbar-nav li a.nav-link:hover,
 .navbar-nav li a.nav-link.active {
 	color: #ff7600 !important;
@@ -108,6 +112,13 @@ a {
 .dropdown {
 	display: none;
 }
-.dropdown-trigger:hover .dropdown {
-	display: block;
+@media (min-width: 992px) {
+	.dropdown-trigger:hover .dropdown {
+		display: block;
+	}
+}
+@media (max-width: 991px) {
+	.dropdown-trigger-mobile:hover .dropdown {
+		display: block;
+	}
 }
