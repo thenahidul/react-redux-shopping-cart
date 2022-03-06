@@ -13,8 +13,6 @@ const initialState = {
 
 const API = `/api/products`;
 
-console.log(API);
-
 export const getProducts = createAsyncThunk("product/getProducts", async () => {
 	const data = await fetch(API);
 	const json = await data.json();
