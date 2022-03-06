@@ -82,7 +82,6 @@ const productSlice = createSlice({
 		},
 		[getProducts.rejected]: (state, action) => {
 			state.loading = false;
-			console.log(action.payload);
 			state.error = action.payload;
 		},
 

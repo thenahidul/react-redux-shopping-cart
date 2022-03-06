@@ -25,7 +25,7 @@ const Products = () => {
 					<div className="w-100 py-3 text-center">
 						Products loading...
 					</div>
-				) : products.length ? (
+				) : (
 					<Fade
 						cascade
 						duration={800}
@@ -35,12 +35,7 @@ const Products = () => {
 							<Product product={product} key={product._id} />
 						))}
 					</Fade>
-				) : (
-					<div className="w-100 py-3 bg-danger text-white text-center">
-						No products found
-					</div>
 				)}
-				{/* {products.length ? "hi" : "No products found"} */}
 			</div>
 		</>
 	);

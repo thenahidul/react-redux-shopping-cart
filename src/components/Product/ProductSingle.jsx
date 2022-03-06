@@ -36,8 +36,6 @@ const ProductSingle = () => {
 		setNotice(true);
 	};
 
-	console.log(loading);
-
 	return (
 		<div className="container min-vh-100 py-5 product-single">
 			{notice && <Notice text={noticeText} type="success" />}
