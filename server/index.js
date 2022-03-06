@@ -1,4 +1,5 @@
 import express from "express";
+import helmet from "helmet";
 import cors from "cors";
 import dotenv from "dotenv";
 import dotenvExpand from "dotenv-expand";
@@ -14,7 +15,26 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+
+const whitelist = [
+	"http://localhost:3000",
+	"http://localhost:8080",
+	"https://react-redux-shopping-cart-1bz4v7h25-thenahidul.vercel.app",
+	"https://elegant-swartz-6637f0.netlify.app"
+];
+const corsOptions = {
+	origin: (origin, callback) => {
+		if (whitelist.indexOf(origin) !== -1 || !origin) {
+			console.log("Origin acceptable");
+			callback(null, true);
+		} else {
+			callback(new Error("Not allowed by CORS"));
+		}
+	}
+};
+
+app.use(helmet());
+app.use(cors(corsOptions));
 
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
