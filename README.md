@@ -1,3 +1,3 @@
-# React Redux Shopping Cart Project
+## [Live Demo](https://elegant-swartz-6637f0.netlify.app/)
 
-# Step 1: Create React App
+## [Live Demo](https://react-redux-shopping-cart-e0beo25vm-thenahidul.vercel.app/)
