@@ -11,7 +11,9 @@ const initialState = {
 	orderByList: ["lowest", "highest"]
 };
 
-const API = `${process.env.REACT_APP_BACKEND_URI}/products`;
+const API = `/api/products`;
+
+console.log(API);
 
 export const getProducts = createAsyncThunk("product/getProducts", async () => {
 	const data = await fetch(API);

@@ -7,7 +7,7 @@ const initialState = {
 	error: ""
 };
 
-const API = `${process.env.REACT_APP_BACKEND_URI}/orders`;
+const API = `/api/orders`;
 
 export const getOrders = createAsyncThunk("order/getOrders", async () => {
 	const data = await fetch(API);
