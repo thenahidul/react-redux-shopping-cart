@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import dotenvExpand from "dotenv-expand";
 import path from "path";
 
-dotenv.config({ path: path.join(__dirname, "../../", ".env") });
+const myEnv = dotenv.config({ path: path.join(__dirname, "../../", ".env") });
+dotenvExpand.expand(myEnv);
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
