@@ -7,7 +7,7 @@ const initialState = {
 	error: ""
 };
 
-const API = `/api/orders`;
+const API = `http://localhost:5000/api/orders`;
 
 export const getOrders = createAsyncThunk("order/getOrders", async () => {
 	const data = await fetch(API);
