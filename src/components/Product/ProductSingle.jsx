@@ -8,7 +8,6 @@ import Notice from "../common/Notice";
 import BtnGroup from "../common/BtnGroup";
 
 const ProductSingle = () => {
-	const [noticeText, setNoticeText] = useState("");
 	const [notice, setNotice] = useState(false);
 
 	const { loading, singleProduct: product } = useSelector(
@@ -25,20 +24,21 @@ const ProductSingle = () => {
 
 	const handleClick = (product) => {
 		window.scrollTo(0, 0);
-
-		// to pass html data ast prop in <Notice/> element
-		setNoticeText([
-			<BsFillCheckCircleFill className="mx-2" />,
-			product.title,
-			<span className="mx-2">has been added to your cart</span>,
-			<BtnGroup />
-		]);
 		setNotice(true);
 	};
 
 	return (
 		<div className="container min-vh-100 py-5 product-single">
-			{notice && <Notice text={noticeText} type="success" />}
+			{notice && (
+				<Notice type="success">
+					<p className="mb-lg-0 my-1">
+						<BsFillCheckCircleFill className="mx-2" />
+						{product.title} has been added to your cart
+					</p>
+					<BtnGroup cssClass="d-block" />
+				</Notice>
+			)}
+
 			{loading ? (
 				<div className="w-100 py-3 text-center">Product loading...</div>
 			) : Object.keys(product).length ? (
