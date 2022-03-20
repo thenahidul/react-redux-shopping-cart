@@ -1,7 +1,5 @@
-import React from "react";
 import Products from "../components/Product/Products";
 // eslint-disable-next-line no-unused-vars
-import Sidebar from "../components/Sidebar";
 
 const Home = () => {
 	return (
@@ -10,9 +8,6 @@ const Home = () => {
 				<div className="col">
 					<Products />
 				</div>
-				{/* <div className="col-lg-3 col-md-4">
-					<Sidebar />
-				</div> */}
 			</div>
 		</div>
 	);

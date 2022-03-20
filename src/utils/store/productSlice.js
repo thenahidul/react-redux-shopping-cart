@@ -11,12 +11,11 @@ const initialState = {
 	orderByList: ["lowest", "highest"]
 };
 
-const API = `/api/products`;
+const API = `http://localhost:5000/api/products`;
 
 export const getProducts = createAsyncThunk("product/getProducts", async () => {
 	const data = await fetch(API);
-	const json = await data.json();
-	return json;
+	return await data.json();
 });
 
 export const getProduct = createAsyncThunk(
