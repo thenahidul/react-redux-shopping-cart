@@ -11,7 +11,7 @@ const initialState = {
 	orderByList: ["lowest", "highest"]
 };
 
-const API = `/api/products/`;
+const API = "/api/products";
 
 export const getProducts = createAsyncThunk("product/getProducts", async () => {
 	const data = await fetch(API);
