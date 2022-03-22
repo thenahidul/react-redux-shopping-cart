@@ -35,7 +35,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "nodemon --exec babel-node server/index.js",
     "server": "nodemon --exec babel-node server/index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
