@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-import dotenvExpand from "dotenv-expand";
-import path from "path";
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const dotenvExpand = require("dotenv-expand");
+const path = require("path");
 
 const myEnv = dotenv.config({ path: path.join(__dirname, "../../", ".env") });
 dotenvExpand.expand(myEnv);
@@ -45,4 +45,4 @@ async function dbConnect() {
 	return cached.conn;
 }
 
-export default dbConnect;
+module.exports = dbConnect;

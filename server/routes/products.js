@@ -1,6 +1,6 @@
-import express from "express";
-import Product from "../models/Product";
-import dbConnect from "../utils/dbConnect";
+const express = require("express");
+const Product = require("../models/Product");
+const dbConnect = require("../utils/dbConnect");
 
 const router = express.Router();
 
@@ -59,4 +59,4 @@ router.delete("/:id", async (req, res) => {
 	}
 });
 
-export default router;
+module.exports = router;

@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import URLSlug from "mongoose-slug-generator";
+const mongoose = require("mongoose");
+const URLSlug = require("mongoose-slug-generator");
 
 mongoose.plugin(URLSlug);
 
@@ -35,5 +35,5 @@ const ProductSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-export default mongoose.models.Product ||
-	mongoose.model("Product", ProductSchema);
+module.exports =
+	mongoose.models.Product || mongoose.model("Product", ProductSchema);
